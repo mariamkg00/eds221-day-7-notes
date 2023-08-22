@@ -87,3 +87,165 @@ inner_ex <- inner_join(animal,site)
 ```{r}
 left_join_ex <- left_join(animal, site)
 ```
+
+### Date-times with lubridate()
+
+ymd: if the date is in year-month-day
+
+mdy: if the date is month- day- year
+
+dmy: if the date is in day-month-year
+
+```{r}
+"03-15-1998" # can be converted into a date format using lubridate function
+
+my_date <- lubridate::mdy("03-15-1998")
+
+my_date2 <- lubridate::mdy("11/7/2003")
+class(my_date2)
+
+#can also use it for character representations for dates
+
+my_date_3 <- lubridate::dmy("08-Jun-1974")
+
+my_date_4 <- lubridate::ymd("19740205")
+
+#break it by giving it the wrong sequence 
+
+
+```
+
+Can we break the lubridate parsing functions?
+
+```{r}
+my_date_5 <- lubridate::mdy("06-20-2001")
+
+#can be extended to include time component
+```
+
+Adding times to our dates
+
+```{r}
+time_1 <- lubridate::ymd_hm("2020-08-12 11:18")
+time_1
+```
+
+Parse June 2, 1982 at 4 pm UTC
+
+```{r}
+time_4 <- lubridate::ymd_hm("1982-06-02 16:00")
+```
+
+Converting time zones
+
+```{r}
+lubridate::with_tz(time_4, "America/Los_Angeles")
+```
+
+```{r}
+with_tz(time_4, "Asia/Amman")
+Sys.time()
+```
+
+```{r}
+now <- with_tz(Sys.time(), "Europe/Belgrade")
+```
+
+Access different parts of date-times
+
+```{r}
+lubridate::day(now)
+```
+
+```{r}
+lubridate::week(now)
+```
+
+```{r}
+lubridate::month(now)
+```
+
+```{r}
+lubridate::minute(now)
+```
+
+```{r}
+urchin_counts <- data.frame(
+  date = c("Oct 12, 2004","Oct 18, 2007","Feb 12, 2003","Feb 14, 2008"),
+  species = c("purple","red","red","red"),
+  size_mm = c(19, 24, 18 ,11)
+)
+class(urchin_counts$date)
+
+```
+
+```{r}
+urchin_mean_by_month <- urchin_counts %>% 
+  mutate(date = lubridate::mdy(date)) %>% 
+  mutate(month = lubridate::month(date)) %>% 
+  group_by(month) %>% 
+  summarize(mean_size = mean(size_mm))
+
+class(urchin_mean_by_month$date)
+
+
+```
+
+## Strings with stringr
+
+use str_detect to detect a string pattern
+
+```{r}
+my_string <- "Bonbon loves pizza and toys"
+```
+
+```{r}
+str_detect(my_string, pattern = "pizza")
+```
+
+```{r}
+str_detect(my_string, pattern = "clothes")
+```
+
+```{r}
+my_string_2 <- c("burrito","fish taco","Taco salad","super-burrito")
+#str_detect() will go element by element
+str_detect(my_string_2, pattern = "taco")
+```
+
+```{r}
+starwars %>% 
+  filter(str_detect(name, pattern = "Skywalker"))
+```
+
+```{r}
+#replace sky with the word fire
+starwars %>% 
+  mutate(name_new = str_replace(name, pattern = "Sky", replacement = "Fire"))
+```
+
+str_trim to get rid of leading and trailing white space
+
+str_squish to get rid of leading and trailing white space and excess interior white space
+
+```{r}
+my_string3 <- "     Hi my name     is mariam ??!   "
+```
+
+```{r}
+str_trim(my_string3)
+
+str_squish(my_string3)
+```
+
+```{r}
+str_to_lower(my_string3)
+str_to_upper(my_string3)
+str_to_title(my_string3)
+str_to_sentence(my_string3)
+```
+
+```{r}
+starwars %>% 
+  mutate(species_lower = str_to_lower(species))
+```
