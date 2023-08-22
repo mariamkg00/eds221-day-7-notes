@@ -1,0 +1,46 @@
+---
+title: "Day 7 Notes"
+format: html
+editor: visual
+---
+
+## 
+
+Data wrangling continued- relational data
+
+typically, you have many tables of data, and you must combine them to answer the questions that you're interested in. Collectively, multiple tables of data are called relational data because it is the relations, not just the individual datasets that are important.
+
+Relational database management system and SQL
+
+-   relational data exist in relational database management systems and are queried using SQL -- look for more in EDS 215
+
+we may need to combine (join) information from different tables from our analyses
+
+-   mutating joins - add new variables to one data fram from matching observations in another
+
+-   filtering joins- filters observations from one data fram based on whether or not they match an observation in the other table
+
+the joins were by trying to find matches for a key- a variable that stores unique information that can be used to connect information across datasets
+
+you might have two datasets from a survey of power plants one containing historic information and one containing information about energy consumption, a power plant id is included in each one, that can be the key by which we could combine data in the two datasets.
+
+```{r}
+# we can think about this with venn diagrams
+# inner_join(x,y)
+
+#full_join(x,y): everything from both data frames is retained regardless of whether or not it has a match in the data fram its being joined to. 
+
+#left_join(x,y)
+#right_join(x,y)
+```
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(lubridate)
+library(kableExtra)
+```
+
+```{r}
+
+```

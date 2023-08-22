@@ -1,0 +1,26 @@
+---
+title: "Day 7 Session 1"
+format: html
+editor: visual
+---
+
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+
+```
+
+### Data wrangling refreshser
+
+1.  starting from penguins, write a single piped sequence in which you only include penguins at dream and biscoe islands, remove the year and sex variables, add a new column body_mass_kg coverted from g to kg, rename the island variable to location.
+
+```{r}
+
+penguins_1 <- penguins %>% 
+  filter(island %in% c("Dream","Biscoe")) %>% 
+  dplyr::select(-year, -sex) %>% 
+  mutate(body_mass_kg = body_mass_g / 1000) %>% 
+  rename(location = island)
+
+
+```
