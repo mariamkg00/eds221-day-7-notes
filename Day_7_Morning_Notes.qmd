@@ -26,11 +26,13 @@ you might have two datasets from a survey of power plants one containing histori
 
 ```{r}
 # we can think about this with venn diagrams
-# inner_join(x,y)
+
+# inner_join(x,y): only keep if they have a key match in x and y 
 
 #full_join(x,y): everything from both data frames is retained regardless of whether or not it has a match in the data fram its being joined to. 
 
-#left_join(x,y)
+#left_join(x,y): everything in x is kept. the things from y that have a matching key in x are joined to it. things in y that do not have a matching key in x are dropped
+
 #right_join(x,y)
 ```
 
@@ -39,8 +41,47 @@ library(tidyverse)
 library(palmerpenguins)
 library(lubridate)
 library(kableExtra)
+library(dplyr)
 ```
 
 ```{r}
+#Think of and sketch a scenario where you would want to use a full_join()
+# multiple trials and trying to combine different datasets
 
+#Think of a scenario where you would want to use a left_join
+# if you don't want to have all possible outcomes show up 
+
+#inner_join() example
+# trying to make a dataframe where no na's can be included
+```
+
+```{r}
+df1 <- data.frame(team=c('Mavs', 'Hawks', 'Spurs', 'Nets'),
+                  points=c(99, 93, 96, 104))
+
+df2 <- data.frame(team=c('Mavs', 'Hawks', 'Spurs', 'Nets'),
+                  rebounds=c(25, 32, 38, 30),
+                  assists=c(19, 18, 22, 25))
+
+df1
+df2
+
+left_join(df1,df2, by = "team")
+```
+
+ISO - provides an unambiguous and well-defined method of representing dates and times, so as to avoid misinterpretation of representing dates and times, so as to avoid misinterpretation of numeric
+
+YYYY-MM-DD
+
+stringr package- provides a cohesive set of functions designed to make working with strings as easy as possible
+
+including easier ways to do things like
+
+-   detecting string patterns
+
+-   replacing string patterns
+
+```{r}
+#str_detect- boolean conndition returning true or false asking if the pattern is detected 
+#str_replace- replace a string pattern with something else 
 ```

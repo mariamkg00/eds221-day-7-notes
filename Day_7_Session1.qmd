@@ -24,3 +24,66 @@ penguins_1 <- penguins %>%
 
 
 ```
+
+2.  Starting from penguins write a single piped sequence to :
+
+-   limit to adelie penguins
+
+-   remove any observations to where flipper_length_mm is NA (drop_na)
+
+-   group data by sex
+
+-   make a summary table containing the mean, sd, and sample size of flipper lengths for male and female adelie penguins
+
+```{r}
+adelie_penguins <- penguins %>% 
+  filter(species == "Adelie") %>% 
+  drop_na(flipper_length_mm, sex) %>% 
+  group_by(sex) %>% 
+  summarize(mean_flipper_length = mean(flipper_length_mm),
+            sd_flipper_length = sd(flipper_length_mm),
+            sample_size = n()) 
+  
+
+  
+```
+
+```{r}
+penguins %>% 
+  group_by(species, island, sex) %>% 
+  summarize(sample_size = n())
+
+#count is just wrapping together group_by +summarizE()+n() to get counts of observations. 
+```
+
+```{r}
+animal <- data.frame(
+  stringsAsFactors = FALSE,
+          location = c("lagoon", "bluff", "creek", "oaks", "bluff"),
+                      species = c("bobcat",
+                                  "coyote","fox","squirrel","bobcat"),
+                     maturity = c("adult",
+                                  "juvenile","adult","juvenile","adult")
+           )
+  
+site <- data.frame(
+  stringsAsFactors = FALSE,
+          location = c("beach", "lagoon", "bluff", "oaks"),
+            full_site_name = c("Goleta Beach",
+                               "UCSB Lagoon","Ellwood Mesa",
+                               "Fremont Campground"),
+      jurisdiction = c("SB City", "UCSB", "SB City", "USFS")
+        )
+```
+
+```{r}
+full_ex <- full_join(animal, site)
+```
+
+```{r}
+inner_ex <- inner_join(animal,site)
+```
+
+```{r}
+left_join_ex <- left_join(animal, site)
+```
